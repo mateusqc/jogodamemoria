@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0" />
+    <title>Jogo da Memória</title>
+  </head>
+  <body>
+    <header><h1>Jogo da Memória</h1></header>
+    <h3>Iniciar novo jogo</h3>
+    <table bordered>
+      <tr>
+        <td>Dificuldade:</td>
+        <td>
+          <select name="difficulty">
+            <option value="e" selected>Fácil</option>
+            <option value="m">Médio</option>
+            <option value="h">Difícil</option>
+          </select>
+        </td>
+        <td>
+          <button disabled>Iniciar Jogo</button>
+        </td>
+      </tr>
+    </table>
+
+    <br />
+
+    <div class="board">
+        <table>
+            <caption>
+                <table>
+                <tr>
+                    <th>Tempo restante</td>
+                    <th>Pontuação</td>
+                </tr>
+                <tr>
+                    <td>00:56</td>
+                    <td>4532</td>
+                </tr>
+                </table>
+            </caption>
+            <tr>
+                <td><img src="src/bola.png" alt="bola" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/hidden.png" alt="lapis" /></td>
+                <td><img src="src/dinossauro.png" alt="dinossauro" /></td>
+            </tr>
+            <tr>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/lapis.png" alt="lapis" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/foguete.png" alt="foguete" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+            </tr>
+            <tr>
+                <td><img src="src/foguete.png" alt="foguete" /></td>
+                <td><img src="src/peao.png" alt="peao" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/dinossauro.png" alt="dinossauro" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+            </tr>
+            <tr>
+                <td><img src="src/lapis.png" alt="lapis" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+                <td><img src="src/peao.png" alt="peao" /></td>
+                <td><img src="src/bola.png" alt="bola" /></td>
+                <td><img src="src/hidden.png" alt="hidden" /></td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div class="hiscores-table">
+        <h2>Hiscores</h2>
+        <table>
+        <tr>
+            <td>Dificuldade:</td>
+            <td>
+            <select disabled name="difficulty">
+                <option value="e">Fácil</option>
+                <option value="m">Médio</option>
+                <option value="h" selected>Difícil</option>
+            </select>
+            </td>
+        </tr>
+        </table>
+        <table>
+        <tr>
+            <th>#</td>
+            <th>Nome</td>
+            <th>Pontuação</td>
+            <th>Data</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>AnAnonymousGuy</td>
+            <td>14654</td>
+            <td>20/08/2019</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>DasDireful</td>
+            <td>14345</td>
+            <td>15/11/2019</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>VenomousChomp</td>
+            <td>14245</td>
+            <td>12/04/2020</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Bootyo</td>
+            <td>13945</td>
+            <td>05/02/2020</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>DasSuccinct</td>
+            <td>12498</td>
+            <td>20/08/2020</td>
+        </tr>
+        </table>
+    </div>
+  </body>
+</html>

@@ -2,6 +2,8 @@
 
 Jogo da memória desenvolvido para a disciplina Princípios de Desenvolvimento Web - 2020.3 - UFCG.
 
+O arquivo em HTML com as principais funcionalidades do projeto se encontra no diretório mainFeature.
+
 ## Descrição do Projeto
 
 Partindo da definição clássica de um jogo da memória ([que pode ser encontrada aqui](https://pt.wikipedia.org/wiki/Jogo_de_mem%C3%B3ria)), o intuito é desenvolver um jogo no mesmo estilo que rode num navegador e utilize uma API rest para comunicação e armazenar quaisquer lógicas necessárias.
