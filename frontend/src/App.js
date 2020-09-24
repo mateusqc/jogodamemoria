@@ -31,12 +31,7 @@ function App() {
       <Layout>
         <Header className='header'>
           <div className='logo' />
-          <Menu
-            theme='dark'
-            style={{ height: '15px' }}
-            mode='horizontal'
-            defaultSelectedKeys={['0']}
-          >
+          <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['0']}>
             {menuItems.map((item, idx) => {
               return (
                 <Menu.Item icon={item.icon} key={idx}>
