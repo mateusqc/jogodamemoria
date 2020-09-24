@@ -5,10 +5,10 @@ import Piece from '../Piece';
 const generateFlippedMatrix = (data = [[]]) => {
   const yLen = data.length;
   const xLen = data[0].length;
-  const result = [];
-  for (let i = 0; i < yLen; i++) {
-    result.push(new Array(xLen).fill(false));
-  }
+  const result = Array.from({ length: yLen }, () =>
+    Array.from({ length: xLen }, () => false)
+  );
+
   return result;
 };
 
@@ -16,14 +16,14 @@ function Board(props) {
   const [flippedMatrix, setFlippedMatrix] = useState(
     generateFlippedMatrix(props.data)
   );
-  const [updated, setUpdated] = useState(false);
 
   const onClick = ({ x, y }) => {
     console.log(`click${y}${x}`);
-    const newFlippedMatrix = flippedMatrix;
+    const newFlippedMatrix = [...flippedMatrix];
+    // if (!newFlippedMatrix[y][x]) {
     newFlippedMatrix[y][x] = !newFlippedMatrix[y][x];
     setFlippedMatrix(newFlippedMatrix);
-    setUpdated(!updated);
+    // }
   };
 
   const boardList = props.data.map((line, y) => {
@@ -32,7 +32,6 @@ function Board(props) {
         <Piece
           value={element}
           flipped={flippedMatrix[y][x]}
-          //   flipped={test}
           onClick={() => onClick({ x, y })}
           position={{ x, y }}
           key={`element-${y}-${x}`}

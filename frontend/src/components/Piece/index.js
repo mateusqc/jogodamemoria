@@ -7,14 +7,14 @@ function Piece(props) {
       className={props.flipped ? 'piece' : 'hidden-piece'}
       onClick={props.onClick}
     >
-      {/* {flipped && ( */}
-      <>
-        <h2>{props.value}</h2>
-        <h2>
-          {props.position.x} {props.position.y}
-        </h2>
-      </>
-      {/* )} */}
+      {props.flipped && (
+        <>
+          <h2>{props.value}</h2>
+          <h2>
+            {props.position.x} {props.position.y}
+          </h2>
+        </>
+      )}
     </div>
   );
 }
