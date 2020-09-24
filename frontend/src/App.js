@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
+import HeaderMenu from './components/HeaderMenu';
 import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
   AppstoreOutlined,
   TrophyOutlined,
   InfoCircleOutlined,
@@ -16,30 +14,22 @@ const { Header, Content } = Layout;
 function App() {
   // const [collapsed, setCollapsed] = useState(false);
 
-  useEffect(() => {
-    console.log('atualizou');
-  });
-
   const menuItems = [
     { label: 'Início', icon: <AppstoreOutlined /> },
     { label: 'Ranking', icon: <TrophyOutlined /> },
     { label: 'Sobre', icon: <InfoCircleOutlined /> },
   ];
 
+  useEffect(() => {
+    console.log('atualizou');
+  });
+
   return (
     <div className='App'>
       <Layout>
         <Header className='header'>
           <div className='logo' />
-          <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['0']}>
-            {menuItems.map((item, idx) => {
-              return (
-                <Menu.Item icon={item.icon} key={idx}>
-                  {item.label}
-                </Menu.Item>
-              );
-            })}
-          </Menu>
+          <HeaderMenu menuItems={menuItems} />
         </Header>
         <Content className='content'>
           <h2>Content</h2>
