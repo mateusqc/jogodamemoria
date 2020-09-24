@@ -20,21 +20,30 @@ function App() {
     console.log('atualizou');
   });
 
+  const menuItems = [
+    { label: 'Início', icon: <AppstoreOutlined /> },
+    { label: 'Ranking', icon: <TrophyOutlined /> },
+    { label: 'Sobre', icon: <InfoCircleOutlined /> },
+  ];
+
   return (
     <div className='App'>
       <Layout>
         <Header className='header'>
           <div className='logo' />
-          <Menu theme='dark' mode='horizontal' defaultSelectedKeys={['1']}>
-            <Menu.Item icon={<AppstoreOutlined />} key='1'>
-              Início
-            </Menu.Item>
-            <Menu.Item icon={<TrophyOutlined />} key='2'>
-              Ranking
-            </Menu.Item>
-            <Menu.Item icon={<InfoCircleOutlined />} key='3'>
-              Sobre
-            </Menu.Item>
+          <Menu
+            theme='dark'
+            style={{ height: '15px' }}
+            mode='horizontal'
+            defaultSelectedKeys={['0']}
+          >
+            {menuItems.map((item, idx) => {
+              return (
+                <Menu.Item icon={item.icon} key={idx}>
+                  {item.label}
+                </Menu.Item>
+              );
+            })}
           </Menu>
         </Header>
         <Content className='content'>
