@@ -8,6 +8,7 @@ import {
   TrophyOutlined,
   InfoCircleOutlined,
 } from '@ant-design/icons';
+import Index from './pages';
 
 const { Header, Content } = Layout;
 
@@ -20,10 +21,6 @@ function App() {
     { label: 'Sobre', icon: <InfoCircleOutlined /> },
   ];
 
-  useEffect(() => {
-    console.log('atualizou');
-  });
-
   return (
     <div className='App'>
       <Layout>
@@ -32,7 +29,7 @@ function App() {
           <HeaderMenu menuItems={menuItems} />
         </Header>
         <Content className='content'>
-          <h2>Content</h2>
+          <Index />
         </Content>
       </Layout>
     </div>

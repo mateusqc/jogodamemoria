@@ -1,0 +1,14 @@
+.piece {
+  height: 100px;
+  width: 100px;
+  background: #fab;
+  margin: 5px;
+}
+
+.hidden-piece {
+  height: 100px;
+  width: 100px;
+  color: #fff;
+  background: #000;
+  margin: 5px;
+}
