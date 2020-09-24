@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 import { Layout } from 'antd';
 import HeaderMenu from './components/HeaderMenu';
@@ -13,8 +12,6 @@ import Index from './pages';
 const { Header, Content } = Layout;
 
 function App() {
-  // const [collapsed, setCollapsed] = useState(false);
-
   const menuItems = [
     { label: 'Início', icon: <AppstoreOutlined /> },
     { label: 'Ranking', icon: <TrophyOutlined /> },

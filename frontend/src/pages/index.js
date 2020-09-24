@@ -12,7 +12,7 @@ function Index() {
   const [boardMatrix, setBoardMatrix] = useState(initBoardMatrix);
   return (
     <>
-      <h2>Content</h2>
+      <h2>Jogo da Velha!</h2>
       <Board data={boardMatrix} />
     </>
   );
