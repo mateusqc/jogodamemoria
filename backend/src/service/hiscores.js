@@ -14,10 +14,8 @@ const extractQuery = (query) => {
 
 module.exports = {
   async getAll(rawQuery) {
-    console.log('hit serv');
     const query = extractQuery(rawQuery);
     const data = await hiscoresRepository.getAll(query);
-    console.log('serv', data);
     return data;
   },
 

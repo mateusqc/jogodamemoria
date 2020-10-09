@@ -33,10 +33,8 @@ const applyFilter = (list = [], filter) => {
 module.exports = {
   async getAll(query) {
     let newlist = [...list];
-    console.log(newlist);
 
     query.forEach((item) => {
-      console.log(item);
       if (item.attribute !== 'order') {
         newlist = applyFilter(newlist, item);
       } else {
