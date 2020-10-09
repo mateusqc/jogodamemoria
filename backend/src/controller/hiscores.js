@@ -3,7 +3,6 @@ const hiscoresService = require('../service/hiscores');
 module.exports = {
   async getAll(req, res, next) {
     try {
-      console.log('hit cont');
       const hiscoresList = await hiscoresService.getAll(req.query);
       res.status(200);
       res.json(hiscoresList);
