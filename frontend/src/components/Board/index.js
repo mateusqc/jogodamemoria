@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Row } from 'antd';
+import { Button, Row } from 'antd';
 import Piece from '../Piece';
+import './index.css';
 
 const generateFlippedMatrix = (data = [[]]) => {
   const yLen = data.length;
@@ -19,6 +20,8 @@ function Board(props) {
   const [lastFlipped, setLastFlipped] = useState(null);
   const [locked, setLocked] = useState(false);
   const [points, setPoints] = useState(0);
+  const [gameTime, setgameTime] = useState();
+  const [started, setStarted] = useState();
 
   const onClick = ({ x, y }) => {
     console.log(`click${y}${x}`);
@@ -86,12 +89,22 @@ function Board(props) {
   });
 
   return (
-    <>
-      <h2>
-        Pontuação: <b>{points}</b>
-      </h2>
-      {boardList}
-    </>
+    <div className='board-grid'>
+      <div>
+        <Button className='board-button' disabled={started}>
+          Iniciar
+        </Button>
+        <Button className='board-button' disabled={!started}>
+          Resetar
+        </Button>
+      </div>
+      <div>
+        <h2>
+          Pontuação: <b>{points}</b>
+        </h2>
+        {boardList}
+      </div>
+    </div>
   );
 }
 
