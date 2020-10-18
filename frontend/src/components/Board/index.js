@@ -98,9 +98,9 @@ function Board(props) {
           Resetar
         </Button>
       </div>
-      <div>
+      <div className='points-container'>
         <h2>
-          Pontuação: <b>{points}</b>
+          Pontuação: <b id='points-value'>{points}</b>
         </h2>
         {boardList}
       </div>
