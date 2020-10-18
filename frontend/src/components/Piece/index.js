@@ -1,10 +1,11 @@
 import React from 'react';
+import PropType from 'prop-types';
 import './index.css';
 
 function Piece(props) {
   return (
     <div
-      className={props.flipped ? 'piece' : 'hidden-piece'}
+      className={'piece ' + (props.flipped ? 'visible' : 'hidden')}
       onClick={props.onClick}
     >
       {props.flipped && (
@@ -18,5 +19,16 @@ function Piece(props) {
     </div>
   );
 }
+
+Piece.defaultProps = {
+  flipped: false,
+  position: { x: null, y: null },
+};
+
+Piece.propTypes = {
+  value: PropType.number.isRequired,
+  position: PropType.object.isRequired,
+  flipped: PropType.bool,
+};
 
 export default Piece;

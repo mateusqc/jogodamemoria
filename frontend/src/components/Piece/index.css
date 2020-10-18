@@ -1,11 +1,11 @@
-.piece {
+.visible {
   height: 100px;
   width: 100px;
   background: #fab;
   margin: 5px;
 }
 
-.hidden-piece {
+.hidden {
   height: 100px;
   width: 100px;
   color: #fff;
