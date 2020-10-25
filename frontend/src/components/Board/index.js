@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Row } from 'antd';
 import Piece from '../Piece';
 import './index.css';
@@ -20,8 +20,9 @@ function Board(props) {
   const [lastFlipped, setLastFlipped] = useState(null);
   const [locked, setLocked] = useState(false);
   const [points, setPoints] = useState(0);
-  const [gameTime, setgameTime] = useState();
-  const [started, setStarted] = useState();
+  // const [gameTime, setgameTime] = useState();
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
 
   const onClick = ({ x, y }) => {
     console.log(`click${y}${x}`);
@@ -52,12 +53,33 @@ function Board(props) {
           setLastFlipped(null);
           unflipPositions([allFlipped.first, allFlipped.second]);
           setLocked(false);
+          checkEndGame();
         }, 1000);
         setPoints(points - 50);
       } else {
         setPoints(points + 300);
         setLastFlipped(null);
+        checkEndGame();
       }
+    }
+  };
+
+  const checkEndGame = () => {
+    let result = true;
+    flippedMatrix.forEach((line) => {
+      line.forEach((piece) => {
+        result = result && piece;
+      });
+    });
+
+    if (result) {
+      setStarted(false);
+      setFinished(true);
+      if (props.matchCallback) {
+        props.matchCallback();
+      }
+      //TODO: fazer de forma ao resultado ser enviado à API para entrar
+      //      na lista de hiscores.
     }
   };
 
@@ -88,22 +110,39 @@ function Board(props) {
     return <Row key={`row-${y}`}>{lineList}</Row>;
   });
 
+  const resetGame = () => {
+    setStarted(false);
+    setFinished(false);
+    setPoints(0);
+    setFlippedMatrix(generateFlippedMatrix(props.data));
+  };
+
   return (
     <div className='board-grid'>
       <div>
-        <Button className='board-button' disabled={started}>
+        <Button
+          className='board-button'
+          onClick={() => setStarted(true)}
+          disabled={started || finished}
+        >
           Iniciar
         </Button>
-        <Button className='board-button' disabled={!started}>
+        <Button
+          className='board-button'
+          onClick={resetGame}
+          disabled={!started && !finished}
+        >
           Resetar
         </Button>
       </div>
-      <div className='points-container'>
-        <h2>
-          Pontuação: <b id='points-value'>{points}</b>
-        </h2>
-        {boardList}
-      </div>
+      {(started || (!started && finished)) && (
+        <div className='points-container'>
+          <h2>
+            Pontuação: <b id='points-value'>{points}</b>
+          </h2>
+          {boardList}
+        </div>
+      )}
     </div>
   );
 }
