@@ -1,6 +1,7 @@
 import { message, Spin } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import Board from '../components/Board';
+import BoardService from '../services/board';
 import { UserContext } from '../context/userContext';
 
 function Index() {
@@ -11,18 +12,11 @@ function Index() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:8000/boards/random', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    BoardService.getRandomBoard()
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .then((response) => {
-        console.log(response);
         setBoardMatrix(response);
       })
       .catch((error) => {
