@@ -14,11 +14,9 @@ function Index() {
     setLoading(true);
     BoardService.getRandomBoard()
       .then((res) => {
-        console.log(res);
         return res.json();
       })
       .then((response) => {
-        console.log(response);
         setBoardMatrix(response);
       })
       .catch((error) => {

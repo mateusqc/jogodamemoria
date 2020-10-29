@@ -1,39 +1,33 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Layout } from 'antd';
-import HeaderMenu from './components/HeaderMenu';
-import {
-  AppstoreOutlined,
-  TrophyOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
-import Index from './pages';
-import UserBox from './components/UserBox';
 import { UserContext } from './context/userContext';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from 'react-router-dom';
+import UrlRouter from './contants/UrlRouter';
 
-const { Header, Content } = Layout;
+import Template from './pages/template';
+import Index from './pages/index';
+import Hiscores from './pages/hiscores';
 
 function App() {
   const [user, setUser] = useState(null);
-  const menuItems = [
-    { label: 'Início', icon: <AppstoreOutlined /> },
-    { label: 'Ranking', icon: <TrophyOutlined /> },
-    { label: 'Sobre', icon: <InfoCircleOutlined /> },
-  ];
+  const history = useHistory();
 
   return (
     <div className='App'>
       <UserContext.Provider value={{ user, setUser }}>
-        <Layout>
-          <Header className='header'>
-            {/* <div className='logo' /> */}
-            <HeaderMenu menuItems={menuItems} />
-            <UserBox />
-          </Header>
-          <Content className='content'>
-            <Index />
-          </Content>
-        </Layout>
+        <Router history={history}>
+          <Template>
+            <Switch>
+              <Route exact component={Index} path={UrlRouter.index} />
+              <Route exact component={Hiscores} path={UrlRouter.hiscores} />
+            </Switch>
+          </Template>
+        </Router>
       </UserContext.Provider>
     </div>
   );

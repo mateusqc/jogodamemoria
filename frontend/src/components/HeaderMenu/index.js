@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
 
 function HeaderMenu(props) {
   const [selected, setSelected] = useState('0');
+  const history = useHistory();
+
+  useEffect(() => {
+    const path = history.location.pathname;
+    props.menuItems.forEach((item, idx) => {
+      if (item.path === path) {
+        setSelected(`${idx}`);
+      }
+    });
+  });
 
   const onClick = (key, action) => {
     setSelected(`${key}`);
@@ -20,7 +31,7 @@ function HeaderMenu(props) {
             onClick={() => onClick(idx, item.action)}
             key={idx}
           >
-            {item.label}
+            <Link to={item.path}>{item.label}</Link>
           </Menu.Item>
         );
       })}
