@@ -1,6 +1,7 @@
 import { Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Board from '../components/Board';
+import BoardService from '../services/board';
 
 function Index() {
   const [boardMatrix, setBoardMatrix] = useState([[]]);
@@ -9,12 +10,7 @@ function Index() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:8000/boards/random', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    BoardService.getRandomBoard()
       .then((res) => {
         console.log(res);
         return res.json();
