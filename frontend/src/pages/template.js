@@ -14,6 +14,11 @@ const { Header, Content } = Layout;
 const History = (props) => {
   const menuItems = [
     { label: 'Início', icon: <AppstoreOutlined />, path: UrlRouter.index },
+    {
+      label: 'Modos de Jogo',
+      icon: <AppstoreOutlined />,
+      path: UrlRouter.gameModes,
+    },
     { label: 'Hiscores', icon: <TrophyOutlined />, path: UrlRouter.hiscores },
     { label: 'Sobre', icon: <InfoCircleOutlined />, path: '' },
   ];

@@ -1,7 +1,7 @@
 import { message, Spin } from 'antd';
 import React, { useContext, useEffect, useState } from 'react';
 import Board from '../components/Board';
-import BoardService from '../services/board';
+import { getRandomBoard } from '../services/board';
 import { UserContext } from '../context/userContext';
 
 function Index() {
@@ -12,7 +12,7 @@ function Index() {
 
   useEffect(() => {
     setLoading(true);
-    BoardService.getRandomBoard()
+    getRandomBoard()
       .then((res) => {
         return res.json();
       })

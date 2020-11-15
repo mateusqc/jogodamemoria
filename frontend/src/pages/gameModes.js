@@ -1,17 +1,17 @@
 import { Spin, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { getHiscores } from '../services/hiscores';
+import { getGameModes } from '../services/gameModes';
 import { getListWithKey } from '../utils/utils';
 
-function HiscoresPage() {
+function GameModesPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page] = useState();
 
   const columns = [
-    { title: 'Nome', dataIndex: 'name', key: 'name' },
-    { title: 'Pontos', dataIndex: 'points', key: 'points' },
-    { title: 'Nível', dataIndex: 'level', key: 'level' },
+    { title: 'Modo de Jogo', dataIndex: 'name', key: 'name' },
+    { title: 'Dificuldade', dataIndex: 'level', key: 'level' },
+    { title: 'Origem', dataIndex: 'type', key: 'type' },
   ];
 
   useEffect(() => {
@@ -20,9 +20,9 @@ function HiscoresPage() {
 
   const loadTableData = (filterParams = {}) => {
     setLoading(true);
-    const params = { order: 'desc' };
+    const params = { order: 'asc' };
     Object.assign(params, filterParams);
-    getHiscores(params)
+    getGameModes(params)
       .then((res) => {
         return res.json();
       })
@@ -46,4 +46,4 @@ function HiscoresPage() {
   );
 }
 
-export default HiscoresPage;
+export default GameModesPage;

@@ -11,7 +11,8 @@ import UrlRouter from './constants/UrlRouter';
 
 import Template from './pages/template';
 import Index from './pages/index';
-import Hiscores from './pages/hiscores';
+import HiscoresPage from './pages/hiscores';
+import GameModesPage from './pages/gameModes';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,7 +25,12 @@ function App() {
           <Template>
             <Switch>
               <Route exact component={Index} path={UrlRouter.index} />
-              <Route exact component={Hiscores} path={UrlRouter.hiscores} />
+              <Route exact component={HiscoresPage} path={UrlRouter.hiscores} />
+              <Route
+                exact
+                component={GameModesPage}
+                path={UrlRouter.gameModes}
+              />
             </Switch>
           </Template>
         </Router>

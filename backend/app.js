@@ -8,6 +8,7 @@ const cors = require('cors');
 var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users');
 var hiscoresRouter = require('./src/routes/hiscores');
+var gameModesRouter = require('./src/routes/gameModes');
 var boardsRouter = require('./src/routes/boards');
 
 var app = express();
@@ -24,8 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 app.use('/', indexRouter);
+
+// Routes
 app.use('/users', usersRouter);
 app.use('/hiscores', hiscoresRouter);
+app.use('/game-modes', gameModesRouter);
 app.use('/boards', boardsRouter);
 
 // catch 404 and forward to error handler

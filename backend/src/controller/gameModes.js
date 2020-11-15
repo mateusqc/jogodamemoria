@@ -1,9 +1,9 @@
-const hiscoresService = require('../service/hiscores');
+const gameModesService = require('../service/gameModes');
 
 module.exports = {
   async getAll(req, res, next) {
     try {
-      const objList = await hiscoresService.getAll(req.query);
+      const objList = await gameModesService.getAll(req.query);
       res.status(200);
       res.json(objList);
       console.log(objList);
@@ -14,7 +14,7 @@ module.exports = {
 
   async create(req, res, next) {
     try {
-      const savedObject = await hiscoresService.create(req.body);
+      const savedObject = await gameModesService.create(req.body);
       res.status(200);
       res.json(savedObject);
     } catch (e) {
