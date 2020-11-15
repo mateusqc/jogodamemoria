@@ -21,8 +21,8 @@ const list = [
     y: 6,
     figures: 18,
     pairsPerFigure: 1,
-    timeLimit: 8,
-    errorLimit: 0,
+    timeLimit: 0,
+    errorLimit: 8,
     type: 'o',
   },
   {
@@ -33,8 +33,8 @@ const list = [
     y: 8,
     figures: 32,
     pairsPerFigure: 2,
-    timeLimit: 4,
-    errorLimit: 0,
+    timeLimit: 0,
+    errorLimit: 4,
     type: 'o',
   },
 ];

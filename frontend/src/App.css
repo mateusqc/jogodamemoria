@@ -58,3 +58,7 @@ body {
 .search-table-with-button {
   width: calc(100% - 10px - 86.53px) !important;
 }
+
+.ant-descriptions-item-label {
+  font-weight: bold !important;
+}

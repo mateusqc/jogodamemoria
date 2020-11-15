@@ -5,11 +5,13 @@ import React, { useEffect, useState } from 'react';
 import { getGameModes } from '../../services/gameModes';
 import staticData from '../../services/staticData';
 import { gateLabelFromValue, getListWithKey } from '../../utils/utils';
+import DetailsDrawer from './detailsDrawer';
 
 function GameModesPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page] = useState();
+  const [detailedRow, setDetailedRow] = useState(null);
 
   const columnButtons = {
     title: '',
@@ -18,7 +20,10 @@ function GameModesPage() {
     width: '60px',
     render: (row) => (
       <span className='table-buttons'>
-        <Button icon={<UnorderedListOutlined />} />
+        <Button
+          icon={<UnorderedListOutlined />}
+          onClick={() => setDetailedRow(row)}
+        />
       </span>
     ),
   };
@@ -84,6 +89,7 @@ function GameModesPage() {
       ) : (
         <Table size='middle' columns={columns} dataSource={list} />
       )}
+      <DetailsDrawer data={detailedRow} onClose={() => setDetailedRow(null)} />
     </>
   );
 }

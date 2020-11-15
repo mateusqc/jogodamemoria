@@ -1,4 +1,4 @@
-import { Button, Row, Spin, Table } from 'antd';
+import { Row, Spin, Table } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
 import { getHiscores } from '../../services/hiscores';
