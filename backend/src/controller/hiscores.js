@@ -1,4 +1,4 @@
-const hiscoresService = require('../service/hiscores');
+const hiscoresService = require('../service/gameModes');
 
 module.exports = {
   async getAll(req, res, next) {

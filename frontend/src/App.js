@@ -11,8 +11,8 @@ import UrlRouter from './constants/UrlRouter';
 
 import Template from './pages/template';
 import Index from './pages/index';
-import HiscoresPage from './pages/hiscores';
-import GameModesPage from './pages/gameModes';
+import HiscoresPage from './pages/hiscores/hiscores';
+import GameModesPage from './pages/gameModes/gameModes';
 
 function App() {
   const [user, setUser] = useState(null);

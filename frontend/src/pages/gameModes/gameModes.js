@@ -2,9 +2,9 @@ import { PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import { Button, Row, Spin, Table } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
-import { getGameModes } from '../services/gameModes';
-import staticData from '../services/staticData';
-import { gateLabelFromValue, getListWithKey } from '../utils/utils';
+import { getGameModes } from '../../services/gameModes';
+import staticData from '../../services/staticData';
+import { gateLabelFromValue, getListWithKey } from '../../utils/utils';
 
 function GameModesPage() {
   const [list, setList] = useState([]);
@@ -70,16 +70,11 @@ function GameModesPage() {
     <>
       <h2>Modos de Jogo</h2>
       <Row className={'table-action-top-bar'}>
-        {/* <Col span={2}>
-          <Button type='primary' icon={<PlusOutlined />}>
-            Novo
-          </Button>
-        </Col> */}
         <Button type='primary' icon={<PlusOutlined />}>
           Novo
         </Button>
         <Search
-          className='search-table'
+          className='search-table-with-button'
           placeholder='Insira sua busca'
           enterButton='Buscar'
         />

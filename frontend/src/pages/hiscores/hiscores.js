@@ -1,7 +1,8 @@
-import { Spin, Table } from 'antd';
+import { Button, Row, Spin, Table } from 'antd';
+import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
-import { getHiscores } from '../services/hiscores';
-import { getListWithKey } from '../utils/utils';
+import { getHiscores } from '../../services/hiscores';
+import { getListWithKey } from '../../utils/utils';
 
 function HiscoresPage() {
   const [list, setList] = useState([]);
@@ -41,6 +42,13 @@ function HiscoresPage() {
   return (
     <>
       <h2>Hiscores</h2>
+      <Row className={'table-action-top-bar'}>
+        <Search
+          className='search-table'
+          placeholder='Insira sua busca'
+          enterButton='Buscar'
+        />
+      </Row>
       {loading ? (
         <Spin />
       ) : (
