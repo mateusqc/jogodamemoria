@@ -41,7 +41,11 @@ function HiscoresPage() {
   return (
     <>
       <h2>Hiscores</h2>
-      {loading ? <Spin /> : <Table columns={columns} dataSource={list} />}
+      {loading ? (
+        <Spin />
+      ) : (
+        <Table size='middle' columns={columns} dataSource={list} />
+      )}
     </>
   );
 }

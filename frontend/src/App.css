@@ -46,3 +46,16 @@ body {
   padding: 24px;
   margin: 12px;
 }
+
+.table-action-top-bar {
+  margin-bottom: 20px;
+}
+
+.table-action-top-bar > button {
+  width: '87px' !important;
+  margin-right: 10px;
+}
+
+.search-table {
+  width: calc(100% - 10px - 86.53px) !important;
+}

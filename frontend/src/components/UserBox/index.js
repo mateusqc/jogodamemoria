@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { Button, Descriptions, Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
-import { SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 import './index.css';
 import { UserContext, defaultUser } from '../../context/userContext';

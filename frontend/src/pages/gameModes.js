@@ -1,17 +1,45 @@
-import { Spin, Table } from 'antd';
+import { PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { Button, Row, Spin, Table } from 'antd';
+import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
 import { getGameModes } from '../services/gameModes';
-import { getListWithKey } from '../utils/utils';
+import staticData from '../services/staticData';
+import { gateLabelFromValue, getListWithKey } from '../utils/utils';
 
 function GameModesPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page] = useState();
 
+  const columnButtons = {
+    title: '',
+    dataIndex: '',
+    key: 'buttons',
+    width: '60px',
+    render: (row) => (
+      <span className='table-buttons'>
+        <Button icon={<UnorderedListOutlined />} />
+      </span>
+    ),
+  };
+
   const columns = [
     { title: 'Modo de Jogo', dataIndex: 'name', key: 'name' },
-    { title: 'Dificuldade', dataIndex: 'level', key: 'level' },
-    { title: 'Origem', dataIndex: 'type', key: 'type' },
+    {
+      title: 'Dificuldade',
+      dataIndex: 'level',
+      key: 'level',
+      render: (value) =>
+        gateLabelFromValue(value, staticData.getGameModeLevel()),
+    },
+    {
+      title: 'Tipo',
+      dataIndex: 'type',
+      key: 'type',
+      render: (value) =>
+        gateLabelFromValue(value, staticData.getGameModeType()),
+    },
+    columnButtons,
   ];
 
   useEffect(() => {
@@ -40,8 +68,27 @@ function GameModesPage() {
 
   return (
     <>
-      <h2>Hiscores</h2>
-      {loading ? <Spin /> : <Table columns={columns} dataSource={list} />}
+      <h2>Modos de Jogo</h2>
+      <Row className={'table-action-top-bar'}>
+        {/* <Col span={2}>
+          <Button type='primary' icon={<PlusOutlined />}>
+            Novo
+          </Button>
+        </Col> */}
+        <Button type='primary' icon={<PlusOutlined />}>
+          Novo
+        </Button>
+        <Search
+          className='search-table'
+          placeholder='Insira sua busca'
+          enterButton='Buscar'
+        />
+      </Row>
+      {loading ? (
+        <Spin />
+      ) : (
+        <Table size='middle' columns={columns} dataSource={list} />
+      )}
     </>
   );
 }

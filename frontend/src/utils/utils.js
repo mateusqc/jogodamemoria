@@ -22,3 +22,8 @@ export const paramsObjectToText = (paramsObject = {}) => {
     return '';
   }
 };
+
+export const gateLabelFromValue = (value, valueList = []) => {
+  const filteredList = valueList.filter((item) => item.value === value);
+  return filteredList.length === 1 ? filteredList.pop()['label'] : '-';
+};
