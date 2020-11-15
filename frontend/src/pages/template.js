@@ -7,7 +7,7 @@ import {
   InfoCircleOutlined,
 } from '@ant-design/icons';
 import UserBox from '../components/UserBox';
-import UrlRouter from '../contants/UrlRouter';
+import UrlRouter from '../constants/UrlRouter';
 
 const { Header, Content } = Layout;
 

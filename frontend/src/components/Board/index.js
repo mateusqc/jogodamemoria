@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Row } from 'antd';
 import Piece from '../Piece';
 import './index.css';
+import { validatePair } from '../../utils/utils';
 
 const generateFlippedMatrix = (data = [[]]) => {
   const yLen = data.length;
@@ -46,7 +47,12 @@ function Board(props) {
     }
 
     if (allFlipped.first && allFlipped.second) {
-      const valid = validatePair(allFlipped.first, allFlipped.second);
+      const valid = validatePair(
+        allFlipped.first,
+        allFlipped.second,
+        props.data
+      );
+
       if (!valid) {
         setLocked(true);
         setTimeout(() => {
@@ -89,10 +95,6 @@ function Board(props) {
       newFlippedMatrix[position.y][position.x] = false;
     });
     setFlippedMatrix(newFlippedMatrix);
-  };
-
-  const validatePair = (first, second) => {
-    return props.data[first.y][first.x] === props.data[second.y][second.x];
   };
 
   const boardList = props.data.map((line, y) => {

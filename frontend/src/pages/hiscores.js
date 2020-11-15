@@ -1,14 +1,12 @@
-import { message, Spin, Table } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
+import { Spin, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
 import HiscoresService from '../services/hiscores';
-import { UserContext } from '../context/userContext';
-import Utils from '../utils/utils';
+import { getListWithKey } from '../utils/utils';
 
 function Index() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page] = useState();
-  const userContext = useContext(UserContext);
 
   const columns = [
     { title: 'Nome', dataIndex: 'name', key: 'name' },
@@ -29,7 +27,7 @@ function Index() {
         return res.json();
       })
       .then((response) => {
-        setList(Utils.getListWithKey(response));
+        setList(getListWithKey(response));
       })
       .catch((error) => {
         console.log(error);
