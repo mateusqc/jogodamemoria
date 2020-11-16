@@ -24,12 +24,11 @@ function GameMode({
   this.userName = userName;
 
   function validate() {
-    Object.keys(this);
     let validation = true;
     validation = validation && this.name;
     validation = validation && this.level >= 0 && this.level <= 2;
-    validation = validation && this.x > 2;
-    validation = validation && this.y > 2;
+    validation = validation && this.x >= 2;
+    validation = validation && this.y >= 2;
     validation = validation && this.figures >= (this.x * this.y) / 2;
     validation = validation && this.pairsPerFigure >= 1;
     validation = validation && this.timeLimit >= 0;

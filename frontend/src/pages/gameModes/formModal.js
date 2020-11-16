@@ -1,12 +1,14 @@
 import { Button, Form, Input, InputNumber, Modal, message, Select } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { UserContext } from '../../context/userContext';
 import GameMode from '../../models/GameMode';
-import { saveGameMode } from '../../services/gameModes';
+import { saveGameMode, updateGameMode } from '../../services/gameModes';
 import staticData from '../../services/staticData';
 
-function FormModal({ visible, onClose }) {
+function FormModal({ visible, onClose, contentToEdit }) {
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
+  const userContext = useContext(UserContext);
 
   const formLayout = {
     labelCol: {
@@ -22,13 +24,17 @@ function FormModal({ visible, onClose }) {
   ];
 
   const onFinish = (values) => {
-    console.log(values);
     const obj = new GameMode(values);
-    obj.userName = 'Test';
-    console.log(obj, obj.validate());
+    obj.userName = userContext.user.name;
+
+    let funcToCall = saveGameMode;
+    if (contentToEdit) {
+      obj.id = contentToEdit.id;
+      funcToCall = updateGameMode;
+    }
 
     if (obj.validate()) {
-      saveGameMode(obj)
+      funcToCall(obj)
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -62,7 +68,12 @@ function FormModal({ visible, onClose }) {
       width={600}
       footer={null}
     >
-      <Form form={form} {...formLayout} onFinish={onFinish}>
+      <Form
+        form={form}
+        {...formLayout}
+        onFinish={onFinish}
+        initialValues={contentToEdit ? contentToEdit : {}}
+      >
         <Form.Item name={'name'} label={'Nome'} rules={defaultRules}>
           <Input />
         </Form.Item>

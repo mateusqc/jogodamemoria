@@ -14,7 +14,7 @@ function Board(props) {
   // const [gameTime, setgameTime] = useState();
 
   const onClick = ({ x, y }) => {
-    console.log(`click${y}${x}`);
+    // console.log(`click${y}${x}`);
     if (!locked && !flippedMatrix[y][x]) {
       const newFlippedMatrix = [...flippedMatrix];
       newFlippedMatrix[y][x] = !newFlippedMatrix[y][x];
@@ -71,8 +71,6 @@ function Board(props) {
     });
 
     if (result) {
-      // setStarted(false);
-      // setFinished(true);
       if (props.matchCallback) {
         props.matchCallback();
       }
@@ -106,22 +104,6 @@ function Board(props) {
 
   return (
     <div className='board-grid'>
-      {/* <div>
-        <Button
-          className='board-button'
-          onClick={() => setStarted(true)}
-          disabled={started || finished}
-        >
-          Iniciar
-        </Button>
-        <Button
-          className='board-button'
-          onClick={resetGame}
-          disabled={!started && !finished}
-        >
-          Resetar
-        </Button>
-      </div> */}
       {(props.started || (!props.started && props.finished)) && (
         <div className='points-container'>
           <h2>

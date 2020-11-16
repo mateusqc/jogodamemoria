@@ -9,12 +9,12 @@ function DetailsDrawer({ onClose, data = {}, title }) {
 
   return (
     <Drawer
-      width={500}
+      width={300}
       title={`Detalhes - ${obj.name}`}
       visible={data}
       onClose={onClose}
     >
-      <Descriptions column={2}>
+      <Descriptions column={1}>
         <Descriptions.Item label='Dificuldade'>
           {gateLabelFromValue(obj.level, staticData.getGameModeLevel())}
         </Descriptions.Item>

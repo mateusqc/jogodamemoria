@@ -18,7 +18,6 @@ function Index() {
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    // loadBoard();
     loadGameModes();
   }, [page]);
 

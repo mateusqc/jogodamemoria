@@ -1,3 +1,4 @@
+const { update } = require('../repository/gameModes');
 const gameModesService = require('../service/gameModes');
 
 module.exports = {
@@ -15,6 +16,21 @@ module.exports = {
   async create(req, res, next) {
     try {
       const savedObject = await gameModesService.create(req.body);
+      res.status(200);
+      res.json(savedObject);
+    } catch (e) {
+      if (e.message && e.message.includes('invalid parameter value of')) {
+        res.status(400);
+        res.json(e.message);
+      } else {
+        throw e;
+      }
+    }
+  },
+
+  async update(req, res, next) {
+    try {
+      const savedObject = await gameModesService.update(req.body);
       res.status(200);
       res.json(savedObject);
     } catch (e) {

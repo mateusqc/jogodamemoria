@@ -1,3 +1,4 @@
+const { update } = require('../repository/gameModes');
 const gameModesRepository = require('../repository/gameModes');
 
 const extractQuery = (query) => {
@@ -19,5 +20,9 @@ module.exports = {
 
   async create(object) {
     return await gameModesRepository.create(object);
+  },
+
+  async update(object) {
+    return await gameModesRepository.update(object);
   },
 };

@@ -109,4 +109,15 @@ module.exports = {
       throw new Error(errorMsg);
     }
   },
+  async update(obj) {
+    const errorMsg = validate(obj);
+    if (!errorMsg) {
+      const idxToUpdate = list.findIndex((item) => item.id === obj.id);
+      console.log(idxToUpdate, list[idxToUpdate]);
+      list[idxToUpdate] = obj;
+      return obj;
+    } else {
+      throw new Error(errorMsg);
+    }
+  },
 };

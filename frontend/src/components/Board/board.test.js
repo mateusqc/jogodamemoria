@@ -42,7 +42,7 @@ beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
   act(() => {
-    render(<Board data={data} />, container);
+    render(<Board data={data} started={true} />, container);
   });
 });
 

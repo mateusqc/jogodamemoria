@@ -20,3 +20,13 @@ export const saveGameMode = (obj) => {
     body: JSON.stringify(obj),
   });
 };
+
+export const updateGameMode = (obj) => {
+  return fetch(`${UrlRouter.api}/game-modes`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+};

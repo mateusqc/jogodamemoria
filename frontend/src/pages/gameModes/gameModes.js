@@ -1,7 +1,12 @@
-import { PlusOutlined, UnorderedListOutlined } from '@ant-design/icons';
-import { Button, Row, Spin, Table } from 'antd';
+import {
+  EditOutlined,
+  PlusOutlined,
+  UnorderedListOutlined,
+} from '@ant-design/icons';
+import { Button, message, Row, Spin, Table } from 'antd';
 import Search from 'antd/lib/input/Search';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../../context/userContext';
 import { getGameModes } from '../../services/gameModes';
 import staticData from '../../services/staticData';
 import { gateLabelFromValue, getListWithKey } from '../../utils/utils';
@@ -13,15 +18,27 @@ function GameModesPage() {
   const [loading, setLoading] = useState(false);
   const [page] = useState();
   const [detailedRow, setDetailedRow] = useState(null);
+  const [rowToEdit, setRowToEdit] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const userContext = useContext(UserContext);
 
   const columnButtons = {
     title: '',
     dataIndex: '',
     key: 'buttons',
-    width: '60px',
+    width: '110px',
     render: (row) => (
-      <span className='table-buttons'>
+      <span className='table-buttons' style={{ float: 'right' }}>
+        {userContext.user && userContext.user.name === row.userName && (
+          <Button
+            icon={<EditOutlined />}
+            style={{ marginRight: '5px' }}
+            onClick={() => {
+              setRowToEdit(row);
+              setIsModalVisible(true);
+            }}
+          />
+        )}
         <Button
           icon={<UnorderedListOutlined />}
           onClick={() => setDetailedRow(row)}
@@ -73,15 +90,19 @@ function GameModesPage() {
       });
   };
 
+  const onClickNovo = () => {
+    if (userContext.user) {
+      setIsModalVisible(true);
+    } else {
+      message.error('É necessário estar logado para criar novos modos de jogo');
+    }
+  };
+
   return (
     <>
       <h2>Modos de Jogo</h2>
       <Row className={'table-action-top-bar'}>
-        <Button
-          type='primary'
-          icon={<PlusOutlined />}
-          onClick={() => setIsModalVisible(true)}
-        >
+        <Button type='primary' icon={<PlusOutlined />} onClick={onClickNovo}>
           Novo
         </Button>
         <Search
@@ -98,6 +119,7 @@ function GameModesPage() {
       <DetailsDrawer data={detailedRow} onClose={() => setDetailedRow(null)} />
       <FormModal
         visible={isModalVisible}
+        contentToEdit={rowToEdit}
         onClose={() => {
           setIsModalVisible(false);
           loadTableData();
