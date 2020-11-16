@@ -19,6 +19,12 @@ module.exports = {
     return data;
   },
 
+  async getAllSearch(rawQuery) {
+    const query = extractQuery(rawQuery);
+    const data = await hiscoresRepository.getAllSearch(query);
+    return data;
+  },
+
   async create(object) {
     return await hiscoresRepository.create(object);
   },

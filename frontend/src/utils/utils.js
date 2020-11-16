@@ -11,9 +11,9 @@ export const paramsObjectToText = (paramsObject = {}) => {
   const keysList = Object.keys(paramsObject);
   if (keysList.length > 0) {
     keysList.forEach((key) => {
-      paramsString += `${key}=${paramsObject[key]}`;
+      paramsString += `${key}=${paramsObject[key]}&`;
     });
-    return paramsString;
+    return paramsString.slice(0, -1);
   } else {
     return '';
   }

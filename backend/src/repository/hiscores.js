@@ -30,6 +30,23 @@ const applyFilter = (list = [], filter) => {
   );
 };
 
+const applyFilterSearch = (list = [], filters = []) => {
+  return list.filter((item) => {
+    let result = false;
+    filters.forEach((filter) => {
+      result =
+        result ||
+        (item[filter.attribute] != null &&
+          item[filter.attribute] != undefined &&
+          item[filter.attribute]
+            .toString()
+            .toLowerCase()
+            .includes(filter.value.toString().toLowerCase()));
+    });
+    return result;
+  });
+};
+
 module.exports = {
   async getAll(query) {
     let newlist = [...list];
@@ -43,6 +60,27 @@ module.exports = {
         );
       }
     });
+
+    return newlist;
+  },
+
+  async getAllSearch(query) {
+    console.log(query);
+    let newlist = [...list];
+    const remainingQueries = [];
+
+    query.forEach((item) => {
+      if (item.attribute !== 'order') {
+        // newlist = applyFilterSearch(newlist, item);
+        remainingQueries.push(item);
+      } else {
+        newlist = newlist.sort(
+          (a, b) => (b.points - a.points) * (item.value === 'asc' ? -1 : 1)
+        );
+      }
+    });
+
+    newlist = applyFilterSearch(newlist, remainingQueries);
 
     return newlist;
   },

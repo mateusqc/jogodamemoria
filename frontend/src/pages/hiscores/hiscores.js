@@ -1,7 +1,7 @@
 import { Row, Spin, Table } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
-import { getHiscores } from '../../services/hiscores';
+import { getHiscores, getHiscoresSearch } from '../../services/hiscores';
 import { getListWithKey } from '../../utils/utils';
 
 function HiscoresPage() {
@@ -19,11 +19,14 @@ function HiscoresPage() {
     loadTableData();
   }, [page]);
 
-  const loadTableData = (filterParams = {}) => {
+  const loadTableData = (filterParams = {}, search = false) => {
     setLoading(true);
     const params = { order: 'desc' };
     Object.assign(params, filterParams);
-    getHiscores(params)
+
+    const funcToUse = search ? getHiscoresSearch : getHiscores;
+
+    funcToUse(params)
       .then((res) => {
         return res.json();
       })
@@ -39,6 +42,19 @@ function HiscoresPage() {
       });
   };
 
+  const onSearch = (query) => {
+    if (query) {
+      const attList = ['name', 'points'];
+      const params = {};
+      attList.forEach((att) => {
+        params[att] = query;
+      });
+      loadTableData(params, true);
+    } else {
+      loadTableData();
+    }
+  };
+
   return (
     <>
       <h2>Hiscores</h2>
@@ -47,6 +63,7 @@ function HiscoresPage() {
           className='search-table'
           placeholder='Insira sua busca'
           enterButton='Buscar'
+          onSearch={onSearch}
         />
       </Row>
       {loading ? (
