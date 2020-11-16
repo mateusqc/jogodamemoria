@@ -12,10 +12,11 @@ const list = [
     timeLimit: 0,
     errorLimit: 0,
     type: 'o',
+    userName: null,
   },
   {
     id: 1,
-    name: 'Intermdiário',
+    name: 'Intermediário',
     level: 1,
     x: 6,
     y: 6,
@@ -24,18 +25,20 @@ const list = [
     timeLimit: 0,
     errorLimit: 8,
     type: 'o',
+    userName: null,
   },
   {
-    id: 1,
+    id: 2,
     name: 'Experiente',
     level: 2,
     x: 8,
     y: 8,
-    figures: 32,
+    figures: 16,
     pairsPerFigure: 2,
     timeLimit: 0,
     errorLimit: 4,
     type: 'o',
+    userName: null,
   },
 ];
 
@@ -49,9 +52,11 @@ const paramList = [
   'timeLimit',
   'errorLimit',
   'type',
+  'userName',
 ];
 
 const validate = (obj) => {
+  console.log(obj);
   let error = null;
   if (obj) {
     paramList.forEach((item) => {
@@ -78,6 +83,7 @@ const applyFilter = (list = [], filter) => {
 module.exports = {
   paramList,
   async getAll(query) {
+    console.log(query);
     let newlist = [...list];
 
     query.forEach((item) => {

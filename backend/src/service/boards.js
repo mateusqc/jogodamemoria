@@ -2,7 +2,7 @@ const { getRandomBoard } = require('../repository/boards');
 const boardsRepository = require('../repository/boards');
 
 module.exports = {
-  async getRandomBoard() {
-    return await boardsRepository.getRandomBoard();
+  async getRandomBoard(query) {
+    return await boardsRepository.getRandomBoard(query);
   },
 };

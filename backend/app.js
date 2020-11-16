@@ -23,7 +23,22 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// const corsOptions = {
+//   origin: 'http://localhost:3000/',
+//   optionsSuccessStatus: 200,
+//   methods: 'GET, POST',
+// };
+
+// app.use(cors(corsOptions));
 app.use(cors());
+
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Add other headers here
+  res.setHeader('Access-Control-Allow-Methods', 'POST'); // Add other methods here
+  res.send();
+});
+
 app.use('/', indexRouter);
 
 // Routes

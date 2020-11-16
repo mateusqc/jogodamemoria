@@ -1,6 +1,7 @@
 const defaultBoardLevel = { x: 4, y: 4, figures: 8, pairsPerFigure: 1 };
 
 const generateBoard = (level = null) => {
+  console.log(level);
   const levelToGenerate = level ? level : defaultBoardLevel;
   const pairs = {};
 

@@ -6,10 +6,6 @@ export const getListWithKey = (list = []) =>
     return item;
   });
 
-export const validatePair = (first, second, data) => {
-  return data[first.y][first.x] === data[second.y][second.x];
-};
-
 export const paramsObjectToText = (paramsObject = {}) => {
   let paramsString = '?';
   const keysList = Object.keys(paramsObject);

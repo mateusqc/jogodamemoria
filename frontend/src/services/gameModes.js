@@ -10,3 +10,13 @@ export const getGameModes = (params) => {
     },
   });
 };
+
+export const saveGameMode = (obj) => {
+  return fetch(`${UrlRouter.api}/game-modes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+};

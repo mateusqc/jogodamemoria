@@ -2,17 +2,7 @@ import React, { useState } from 'react';
 import { Button, Row } from 'antd';
 import Piece from '../Piece';
 import './index.css';
-import { validatePair } from '../../utils/utils';
-
-const generateFlippedMatrix = (data = [[]]) => {
-  const yLen = data.length;
-  const xLen = data[0].length;
-  const result = Array.from({ length: yLen }, () =>
-    Array.from({ length: xLen }, () => false)
-  );
-
-  return result;
-};
+import { validatePair, generateFlippedMatrix } from './boardLogic';
 
 function Board(props) {
   const [flippedMatrix, setFlippedMatrix] = useState(
@@ -22,8 +12,6 @@ function Board(props) {
   const [locked, setLocked] = useState(false);
   const [points, setPoints] = useState(0);
   // const [gameTime, setgameTime] = useState();
-  const [started, setStarted] = useState(false);
-  const [finished, setFinished] = useState(false);
 
   const onClick = ({ x, y }) => {
     console.log(`click${y}${x}`);
@@ -55,12 +43,7 @@ function Board(props) {
 
       if (!valid) {
         setLocked(true);
-        setTimeout(() => {
-          setLastFlipped(null);
-          unflipPositions([allFlipped.first, allFlipped.second]);
-          setLocked(false);
-          checkEndGame();
-        }, 1000);
+        wrongSelectionAction([allFlipped.first, allFlipped.second]);
         setPoints(points - 50);
       } else {
         setPoints(points + 300);
@@ -68,6 +51,15 @@ function Board(props) {
         checkEndGame();
       }
     }
+  };
+
+  const wrongSelectionAction = (positionsList) => {
+    setTimeout(() => {
+      setLastFlipped(null);
+      unflipPositions(positionsList);
+      setLocked(false);
+      checkEndGame();
+    }, 1000);
   };
 
   const checkEndGame = () => {
@@ -79,8 +71,8 @@ function Board(props) {
     });
 
     if (result) {
-      setStarted(false);
-      setFinished(true);
+      // setStarted(false);
+      // setFinished(true);
       if (props.matchCallback) {
         props.matchCallback();
       }
@@ -112,16 +104,9 @@ function Board(props) {
     return <Row key={`row-${y}`}>{lineList}</Row>;
   });
 
-  const resetGame = () => {
-    setStarted(false);
-    setFinished(false);
-    setPoints(0);
-    setFlippedMatrix(generateFlippedMatrix(props.data));
-  };
-
   return (
     <div className='board-grid'>
-      <div>
+      {/* <div>
         <Button
           className='board-button'
           onClick={() => setStarted(true)}
@@ -136,8 +121,8 @@ function Board(props) {
         >
           Resetar
         </Button>
-      </div>
-      {(started || (!started && finished)) && (
+      </div> */}
+      {(props.started || (!props.started && props.finished)) && (
         <div className='points-container'>
           <h2>
             Pontuação: <b id='points-value'>{points}</b>

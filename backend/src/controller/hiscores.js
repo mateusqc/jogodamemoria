@@ -20,7 +20,7 @@ module.exports = {
     } catch (e) {
       if (e.message && e.message.includes('invalid parameter value of')) {
         res.status(400);
-        res.json(errorMsg);
+        res.json(e.message);
       } else {
         throw e;
       }

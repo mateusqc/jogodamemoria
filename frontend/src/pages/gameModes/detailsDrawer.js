@@ -1,14 +1,12 @@
 import { Descriptions, Drawer } from 'antd';
-import { object } from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import GameMode from '../../models/GameMode';
 import staticData from '../../services/staticData';
 import { gateLabelFromValue } from '../../utils/utils';
 
-function DetailsDrawer({ onClose, data, title }) {
-  // const obj = new GameMode(data);
-  const obj = {};
-  Object.assign(obj, data);
+function DetailsDrawer({ onClose, data = {}, title }) {
+  const obj = new GameMode(data ? data : {});
+
   return (
     <Drawer
       width={500}
@@ -35,6 +33,11 @@ function DetailsDrawer({ onClose, data, title }) {
         <Descriptions.Item label='Tipo'>
           {gateLabelFromValue(obj.type, staticData.getGameModeType())}
         </Descriptions.Item>
+        {obj.userName && (
+          <Descriptions.Item label='Autor'>
+            {gateLabelFromValue(obj.userName, staticData.getGameModeType())}
+          </Descriptions.Item>
+        )}
       </Descriptions>
     </Drawer>
   );

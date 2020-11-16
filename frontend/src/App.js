@@ -10,7 +10,7 @@ import {
 import UrlRouter from './constants/UrlRouter';
 
 import Template from './pages/template';
-import Index from './pages/index';
+import Index from './pages/game/index';
 import HiscoresPage from './pages/hiscores/hiscores';
 import GameModesPage from './pages/gameModes/gameModes';
 

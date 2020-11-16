@@ -9,7 +9,7 @@ export default {
   getGameModeType() {
     return [
       { value: 'o', label: 'Oficial' },
-      { value: 'c', label: 'Comunidade' },
+      { value: 'u', label: 'Usuário' },
     ];
   },
 };

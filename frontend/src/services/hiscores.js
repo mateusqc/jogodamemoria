@@ -10,3 +10,13 @@ export const getHiscores = (params) => {
     },
   });
 };
+
+export const saveHiscore = (obj) => {
+  return fetch(`${UrlRouter.api}/hiscores`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(obj),
+  });
+};

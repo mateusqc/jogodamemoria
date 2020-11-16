@@ -6,12 +6,14 @@ import { getGameModes } from '../../services/gameModes';
 import staticData from '../../services/staticData';
 import { gateLabelFromValue, getListWithKey } from '../../utils/utils';
 import DetailsDrawer from './detailsDrawer';
+import FormModal from './formModal';
 
 function GameModesPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page] = useState();
   const [detailedRow, setDetailedRow] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const columnButtons = {
     title: '',
@@ -75,7 +77,11 @@ function GameModesPage() {
     <>
       <h2>Modos de Jogo</h2>
       <Row className={'table-action-top-bar'}>
-        <Button type='primary' icon={<PlusOutlined />}>
+        <Button
+          type='primary'
+          icon={<PlusOutlined />}
+          onClick={() => setIsModalVisible(true)}
+        >
           Novo
         </Button>
         <Search
@@ -90,6 +96,13 @@ function GameModesPage() {
         <Table size='middle' columns={columns} dataSource={list} />
       )}
       <DetailsDrawer data={detailedRow} onClose={() => setDetailedRow(null)} />
+      <FormModal
+        visible={isModalVisible}
+        onClose={() => {
+          setIsModalVisible(false);
+          loadTableData();
+        }}
+      />
     </>
   );
 }
