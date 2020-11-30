@@ -7,7 +7,9 @@ import { getGameModes } from '../../services/gameModes';
 import { getListWithKey } from '../../utils/utils';
 import { generateFigures } from '../../utils/boardStyleGenerator';
 import GameMode from '../../models/GameMode';
+import './index.css';
 import Icon, { MessageOutlined } from '@ant-design/icons';
+import gameRules from '../../constants/gameRules';
 
 function Index() {
   const [boardMatrix, setBoardMatrix] = useState([[]]);
@@ -104,54 +106,72 @@ function Index() {
   };
 
   return (
-    <>
-      <h2>Jogo da Memória!</h2>
-      <div style={{ marginBottom: '20px', width: '200px' }}>
-        <h4>Modo de Jogo</h4>
-        <Select
-          style={{ width: '100%' }}
-          placeholder={'Selecione'}
-          value={selectedGameMode}
-          onChange={(value) => {
-            defineGameMode(value);
-            loadBoard(value);
-          }}
-        >
-          {gameModesList.map((item) => (
-            <Select.Option value={item.id}>{item.name}</Select.Option>
-          ))}
-        </Select>
-      </div>
-      <div>
-        <Button
-          className='board-button'
-          onClick={startGame}
-          disabled={started || finished}
-        >
-          Iniciar
-        </Button>
-        <Button
-          className='board-button'
-          onClick={resetGame}
-          disabled={!started && !finished}
-        >
-          Resetar
-        </Button>
+    <div className='grid-container'>
+      <div className='col1'>
+        <h2>Jogo da Memória</h2>
+        <div className='instructions'>
+          {gameRules.map((item) => {
+            return (
+              <div>
+                <b>{item.label}: </b>
+                {item.text}
+              </div>
+            );
+          })}
+        </div>
+        <div style={{ marginBottom: '20px', width: '200px' }}>
+          <h4>Modo de Jogo</h4>
+          <Select
+            style={{ width: '100%' }}
+            placeholder={'Selecione'}
+            value={selectedGameMode}
+            onChange={(value) => {
+              defineGameMode(value);
+              loadBoard(value);
+            }}
+            disabled={started || finished}
+          >
+            {gameModesList.map((item) => (
+              <Select.Option value={item.id}>{item.name}</Select.Option>
+            ))}
+          </Select>
+        </div>
+        <div>
+          <Button
+            className='board-button'
+            onClick={startGame}
+            disabled={started || finished}
+          >
+            Iniciar
+          </Button>
+          <Button
+            className='board-button'
+            onClick={resetGame}
+            disabled={!started && !finished}
+          >
+            Resetar
+          </Button>
+        </div>
       </div>
       {loading ? (
         <Spin></Spin>
       ) : (
         (started || finished) && (
-          <Board
-            data={boardMatrix}
-            matchCallback={matchCallback}
-            started={started}
-            finished={finished}
-            style={selectedGameModeStyle}
-          />
+          <div
+            className='col2'
+            style={{ borderLeft: 'solid 1px black', paddingLeft: '15px' }}
+          >
+            <Board
+              data={boardMatrix}
+              matchCallback={matchCallback}
+              started={started}
+              finished={finished}
+              style={selectedGameModeStyle}
+            />
+          </div>
         )
       )}
-    </>
+    </div>
   );
 }
 
