@@ -19,6 +19,17 @@ const data = [
   [0, 6, 7, 7],
 ];
 
+const style = [
+  { icon: 'laptop', color: '#4287f5' },
+  { icon: 'gift', color: '#32cd32' },
+  { icon: 'lock', color: '#6a5acd' },
+  { icon: 'phone', color: '#ffd700' },
+  { icon: 'cart', color: '#48d1cc' },
+  { icon: 'tool', color: '#dc143c' },
+  { icon: 'compass', color: '#ff8c00' },
+  { icon: 'car', color: '#ff69b4' },
+];
+
 let container = null;
 
 beforeAll(() => {
@@ -42,7 +53,7 @@ beforeEach(() => {
   container = document.createElement('div');
   document.body.appendChild(container);
   act(() => {
-    render(<Board data={data} started={true} />, container);
+    render(<Board data={data} started={true} style={style} />, container);
   });
 });
 
@@ -74,7 +85,8 @@ it('when clicked, a piece must be turn to visible', () => {
   act(() => {
     pieces[0].dispatchEvent(new MouseEvent('click', { bubbles: true }));
   });
-  expect(pieces[0].textContent).toBeTruthy();
+  expect(pieces[0].className.includes('visible')).toBeTruthy();
+  expect(pieces[0].children.length > 0).toBeTruthy();
 });
 
 // it("when two pieces don't match, they will return to be not visible after 1s", () => {
@@ -86,9 +98,9 @@ it("when two pieces don't match, they will return to be not visible after 1s", (
   jest.useFakeTimers();
 
   const concatenatePiecesContent = (pieces = []) => {
-    let content = '';
+    let content = 0;
     pieces.forEach((piece) => {
-      content = content + piece.textContent;
+      content += piece.children.length;
     });
     return content;
   };

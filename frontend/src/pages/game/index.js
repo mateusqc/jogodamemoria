@@ -5,7 +5,9 @@ import { getRandomBoard } from '../../services/board';
 import { UserContext } from '../../context/userContext';
 import { getGameModes } from '../../services/gameModes';
 import { getListWithKey } from '../../utils/utils';
+import { generateFigures } from '../../utils/boardStyleGenerator';
 import GameMode from '../../models/GameMode';
+import Icon, { MessageOutlined } from '@ant-design/icons';
 
 function Index() {
   const [boardMatrix, setBoardMatrix] = useState([[]]);
@@ -14,12 +16,21 @@ function Index() {
   const [finished, setFinished] = useState(false);
   const [gameModesList, setGameModesList] = useState([]);
   const [selectedGameMode, setSelectedGameMode] = useState(null);
+  const [selectedGameModeStyle, setSelectedGameModeStyle] = useState(null);
   const [page] = useState();
   const userContext = useContext(UserContext);
 
   useEffect(() => {
     loadGameModes();
   }, [page]);
+
+  const defineGameMode = (gameModeKey) => {
+    setSelectedGameMode(gameModeKey);
+    const gameMode = gameModesList.filter((item) => item.key === gameModeKey);
+    const style = generateFigures(gameMode[0].figures);
+    setSelectedGameModeStyle(style);
+    console.log(style);
+  };
 
   const loadGameModes = () => {
     setLoading(true);
@@ -31,7 +42,7 @@ function Index() {
       .then((response) => {
         setGameModesList(getListWithKey(response));
         if (gameModesList.length > 0) {
-          setSelectedGameMode(new GameMode(gameModesList[0]).id);
+          defineGameMode(new GameMode(gameModesList[0]).id);
         }
       })
       .catch((error) => {
@@ -102,7 +113,7 @@ function Index() {
           placeholder={'Selecione'}
           value={selectedGameMode}
           onChange={(value) => {
-            setSelectedGameMode(value);
+            defineGameMode(value);
             loadBoard(value);
           }}
         >
@@ -136,6 +147,7 @@ function Index() {
             matchCallback={matchCallback}
             started={started}
             finished={finished}
+            style={selectedGameModeStyle}
           />
         )
       )}

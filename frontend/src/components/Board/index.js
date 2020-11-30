@@ -92,6 +92,7 @@ function Board(props) {
       return (
         <Piece
           value={element}
+          style={props.style[element]}
           flipped={flippedMatrix[y][x]}
           onClick={() => onClick({ x, y })}
           position={{ x, y }}
