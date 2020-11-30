@@ -80,21 +80,43 @@ const applyFilter = (list = [], filter) => {
   );
 };
 
+const applySearch = (list = [], searches = []) => {
+  return list.filter((item) => {
+    let result = false;
+    searches.forEach((search) => {
+      result =
+        result ||
+        (item[search.attribute] != null &&
+          item[search.attribute] != undefined &&
+          item[search.attribute]
+            .toString()
+            .toLowerCase()
+            .includes(search.value.toString().toLowerCase()));
+    });
+    return result;
+  });
+};
+
 module.exports = {
   paramList,
   async getAll(query) {
     console.log(query);
     let newlist = [...list];
+    const remainingQueries = [];
 
     query.forEach((item) => {
       if (item.attribute !== 'order') {
-        newlist = applyFilter(newlist, item);
+        remainingQueries.push(item);
       } else {
         newlist = newlist.sort(
           (a, b) => (b.level - a.level) * (item.value === 'asc' ? -1 : 1)
         );
       }
     });
+
+    if (remainingQueries.length > 0) {
+      newlist = applySearch(newlist, remainingQueries);
+    }
 
     return newlist;
   },

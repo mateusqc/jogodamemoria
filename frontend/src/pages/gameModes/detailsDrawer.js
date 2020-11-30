@@ -34,9 +34,7 @@ function DetailsDrawer({ onClose, data = {}, title }) {
           {gateLabelFromValue(obj.type, staticData.getGameModeType())}
         </Descriptions.Item>
         {obj.userName && (
-          <Descriptions.Item label='Autor'>
-            {gateLabelFromValue(obj.userName, staticData.getGameModeType())}
-          </Descriptions.Item>
+          <Descriptions.Item label='Autor'>{obj.userName}</Descriptions.Item>
         )}
       </Descriptions>
     </Drawer>

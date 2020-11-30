@@ -30,7 +30,24 @@ const applyFilter = (list = [], filter) => {
   );
 };
 
-const applyFilterSearch = (list = [], filters = []) => {
+const applySearch = (list = [], searches = []) => {
+  return list.filter((item) => {
+    let result = false;
+    searches.forEach((search) => {
+      result =
+        result ||
+        (item[search.attribute] != null &&
+          item[search.attribute] != undefined &&
+          item[search.attribute]
+            .toString()
+            .toLowerCase()
+            .includes(search.value.toString().toLowerCase()));
+    });
+    return result;
+  });
+};
+
+const applyAdvancedFilter = (list = [], filters = []) => {
   return list.filter((item) => {
     let result = false;
     filters.forEach((filter) => {
@@ -38,10 +55,7 @@ const applyFilterSearch = (list = [], filters = []) => {
         result ||
         (item[filter.attribute] != null &&
           item[filter.attribute] != undefined &&
-          item[filter.attribute]
-            .toString()
-            .toLowerCase()
-            .includes(filter.value.toString().toLowerCase()));
+          item[filter.attribute].toString() === filter.value.toString());
     });
     return result;
   });
@@ -64,14 +78,13 @@ module.exports = {
     return newlist;
   },
 
-  async getAllSearch(query) {
-    console.log(query);
+  async getAllSearchFilter(query = [], filters = []) {
+    console.log(filters);
     let newlist = [...list];
     const remainingQueries = [];
 
     query.forEach((item) => {
       if (item.attribute !== 'order') {
-        // newlist = applyFilterSearch(newlist, item);
         remainingQueries.push(item);
       } else {
         newlist = newlist.sort(
@@ -80,7 +93,14 @@ module.exports = {
       }
     });
 
-    newlist = applyFilterSearch(newlist, remainingQueries);
+    console.log(newlist);
+
+    if (filters.length > 0) {
+      newlist = applyAdvancedFilter(newlist, filters);
+    }
+    if (remainingQueries.length > 0) {
+      newlist = applySearch(newlist, remainingQueries);
+    }
 
     return newlist;
   },

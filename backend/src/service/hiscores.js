@@ -1,3 +1,4 @@
+const { getAllSearchFilter } = require('../repository/hiscores');
 const hiscoresRepository = require('../repository/hiscores');
 
 const paramList = ['name', 'points', 'level'];
@@ -21,7 +22,13 @@ module.exports = {
 
   async getAllSearch(rawQuery) {
     const query = extractQuery(rawQuery);
-    const data = await hiscoresRepository.getAllSearch(query);
+    const data = await hiscoresRepository.getAllSearchFilter(query);
+    return data;
+  },
+
+  async getAllSearchFilter(rawQuery, filters) {
+    const query = extractQuery(rawQuery);
+    const data = await hiscoresRepository.getAllSearchFilter(query, filters);
     return data;
   },
 

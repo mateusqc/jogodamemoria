@@ -1,32 +1,59 @@
-import { Row, Spin, Table } from 'antd';
+import { Button, Row, Select, Spin, Table } from 'antd';
 import Search from 'antd/lib/input/Search';
 import React, { useEffect, useState } from 'react';
-import { getHiscores, getHiscoresSearch } from '../../services/hiscores';
-import { getListWithKey } from '../../utils/utils';
+import { getGameModes } from '../../services/gameModes';
+import { getHiscoresSearchFilter } from '../../services/hiscores';
+import { gateLabelFromValue, getListWithKey } from '../../utils/utils';
 
 function HiscoresPage() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedGameMode, setSelectedGameMode] = useState(0);
+  const [gameModesList, setGameModesList] = useState([]);
   const [page] = useState();
 
   const columns = [
     { title: 'Nome', dataIndex: 'name', key: 'name' },
     { title: 'Pontos', dataIndex: 'points', key: 'points' },
-    { title: 'Nível', dataIndex: 'level', key: 'level' },
+    {
+      title: 'Modo de Jogo',
+      dataIndex: 'level',
+      key: 'level',
+      render: (value) => gateLabelFromValue(value, gameModesList, 'id', 'name'),
+    },
   ];
 
   useEffect(() => {
     loadTableData();
+    loadGameModes();
   }, [page]);
+
+  const loadGameModes = () => {
+    setLoading(true);
+    const params = { order: 'asc' };
+    getGameModes(params)
+      .then((res) => {
+        return res.json();
+      })
+      .then((response) => {
+        setGameModesList(getListWithKey(response));
+      })
+      .catch((error) => {
+        setGameModesList([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   const loadTableData = (filterParams = {}, search = false) => {
     setLoading(true);
     const params = { order: 'desc' };
     Object.assign(params, filterParams);
 
-    const funcToUse = search ? getHiscoresSearch : getHiscores;
-
-    funcToUse(params)
+    getHiscoresSearchFilter(params, [
+      { attribute: 'level', value: selectedGameMode },
+    ])
       .then((res) => {
         return res.json();
       })
@@ -59,8 +86,24 @@ function HiscoresPage() {
     <>
       <h2>Hiscores</h2>
       <Row className={'table-action-top-bar'}>
+        {/* <Button type='primary'>Novo</Button> */}
+        <div className='search-table-filter'>
+          <Select
+            style={{ width: '100%' }}
+            placeholder={'Selecione'}
+            value={selectedGameMode}
+            onChange={(value) => {
+              setSelectedGameMode(value);
+              // loadBoard(value);
+            }}
+          >
+            {gameModesList.map((item) => (
+              <Select.Option value={item.id}>{item.name}</Select.Option>
+            ))}
+          </Select>
+        </div>
         <Search
-          className='search-table'
+          className='search-table-with-filter'
           placeholder='Insira sua busca'
           enterButton='Buscar'
           onSearch={onSearch}

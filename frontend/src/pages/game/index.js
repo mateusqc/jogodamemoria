@@ -10,6 +10,7 @@ import GameMode from '../../models/GameMode';
 import './index.css';
 import Icon, { MessageOutlined } from '@ant-design/icons';
 import gameRules from '../../constants/gameRules';
+import { saveHiscore } from '../../services/hiscores';
 
 function Index() {
   const [boardMatrix, setBoardMatrix] = useState([[]]);
@@ -73,21 +74,41 @@ function Index() {
       });
   };
 
-  const addMatchToLoggedUser = () => {
+  const addMatchToLoggedUser = (points) => {
     if (userContext.user) {
       const newUser = {};
       Object.assign(newUser, userContext.user);
       newUser.matchesPlayed = newUser.matchesPlayed + 1;
       userContext.setUser(newUser);
+      persistNewHiscore({
+        points,
+        level: selectedGameMode,
+        name: newUser.name,
+      });
     } else {
       message.warning('Partida não gravada, não há usuário logado.');
     }
   };
 
-  const matchCallback = () => {
+  const persistNewHiscore = (hiscore) => {
+    saveHiscore(hiscore)
+      .then((response) => {
+        if (response.status === 200) {
+          message.success('Partida gravada nos Hiscores!');
+        } else {
+          message.error('Erro ao gravar partida nos Hiscores.');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        message.error('Erro ao gravar partida nos Hiscores.');
+      });
+  };
+
+  const matchCallback = (points) => {
     setStarted(false);
     setFinished(true);
-    addMatchToLoggedUser();
+    addMatchToLoggedUser(points);
   };
 
   const resetGame = () => {

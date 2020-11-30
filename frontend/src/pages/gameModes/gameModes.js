@@ -98,6 +98,19 @@ function GameModesPage() {
     }
   };
 
+  const onSearch = (query) => {
+    if (query) {
+      const attList = ['name'];
+      const params = {};
+      attList.forEach((att) => {
+        params[att] = query;
+      });
+      loadTableData(params);
+    } else {
+      loadTableData();
+    }
+  };
+
   return (
     <>
       <h2>Modos de Jogo</h2>
@@ -109,6 +122,7 @@ function GameModesPage() {
           className='search-table-with-button'
           placeholder='Insira sua busca'
           enterButton='Buscar'
+          onSearch={onSearch}
         />
       </Row>
       {loading ? (

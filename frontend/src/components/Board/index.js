@@ -72,7 +72,7 @@ function Board(props) {
 
     if (result) {
       if (props.matchCallback) {
-        props.matchCallback();
+        props.matchCallback(points);
       }
       //TODO: fazer de forma ao resultado ser enviado à API para entrar
       //      na lista de hiscores.

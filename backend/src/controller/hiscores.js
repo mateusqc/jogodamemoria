@@ -23,6 +23,20 @@ module.exports = {
     }
   },
 
+  async getAllSearchFilter(req, res, next) {
+    try {
+      const objList = await hiscoresService.getAllSearchFilter(
+        req.query,
+        req.body
+      );
+      res.status(200);
+      res.json(objList);
+      console.log(objList);
+    } catch (e) {
+      res.status(500);
+    }
+  },
+
   async create(req, res, next) {
     try {
       const savedObject = await hiscoresService.create(req.body);

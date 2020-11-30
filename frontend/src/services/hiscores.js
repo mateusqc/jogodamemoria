@@ -21,6 +21,17 @@ export const getHiscoresSearch = (params) => {
   });
 };
 
+export const getHiscoresSearchFilter = (params, filters = []) => {
+  const paramsString = paramsObjectToText(params);
+  return fetch(`${UrlRouter.api}/hiscores/search-filter${paramsString}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(filters),
+  });
+};
+
 export const saveHiscore = (obj) => {
   return fetch(`${UrlRouter.api}/hiscores`, {
     method: 'POST',

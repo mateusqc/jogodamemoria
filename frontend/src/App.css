@@ -59,6 +59,15 @@ body {
   width: calc(100% - 10px - 86.53px) !important;
 }
 
+.search-table-with-filter {
+  width: calc(100% - 10px - 150px) !important;
+}
+
+.search-table-filter {
+  width: 150px !important;
+  margin-right: 10px;
+}
+
 .ant-descriptions-item-label {
   font-weight: bold !important;
 }
