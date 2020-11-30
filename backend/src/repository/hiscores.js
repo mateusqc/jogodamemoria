@@ -1,7 +1,7 @@
 const list = [
-  { id: 0, name: 'Fulano da Silva', points: 34567, level: 0 },
-  { id: 1, name: 'Mateus Queiroz Cunha', points: 45651, level: 0 },
-  { id: 2, name: 'Adamastor Pitaco', points: 54231, level: 1 },
+  { id: 0, name: 'Fulano da Silva', points: 1800, level: 0 },
+  { id: 1, name: 'Mateus Queiroz Cunha', points: 2000, level: 0 },
+  { id: 2, name: 'Adamastor Pitaco', points: 4000, level: 1 },
 ];
 
 const paramList = ['name', 'points', 'level'];
