@@ -115,7 +115,8 @@ function FormModal({ visible, onClose, contentToEdit }) {
           label={'Limite de Tempo (s)'}
           //   rules={defaultRules}
         >
-          <InputNumber min={0} />
+          <InputNumber min={0} disabled={true} />
+          {/* disabled devido a funcionalidade ainda não implementada */}
         </Form.Item>
 
         <Form.Item
@@ -123,7 +124,8 @@ function FormModal({ visible, onClose, contentToEdit }) {
           label={'Limite de Erros'}
           //   rules={defaultRules}
         >
-          <InputNumber min={0} />
+          <InputNumber min={0} disabled />
+          {/* disabled devido a funcionalidade ainda não implementada */}
         </Form.Item>
 
         <Form.Item wrapperCol={{ ...formLayout.wrapperCol, offset: 16 }}>

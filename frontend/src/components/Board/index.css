@@ -2,6 +2,20 @@
   display: grid;
 }
 
+.finished {
+  background-color: #a9a9a966;
+}
+
 .board-button {
   margin-right: 10px;
+}
+
+.time-title {
+  position: relative;
+  top: auto;
+  left: auto;
+}
+
+.end-title {
+  color: #b22222;
 }

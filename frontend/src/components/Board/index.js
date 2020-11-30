@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
-import { Button, Row } from 'antd';
+import { Row } from 'antd';
 import Piece from '../Piece';
 import './index.css';
-import { validatePair, generateFlippedMatrix } from './boardLogic';
+import {
+  validatePair,
+  generateFlippedMatrix,
+  getFlippedPositionsObject,
+} from './boardLogic';
+import { getDiffTimesString } from '../../utils/utils';
 
-function Board(props) {
+function Board({ data, matchCallback, started, finished, style }) {
   const [flippedMatrix, setFlippedMatrix] = useState(
-    generateFlippedMatrix(props.data)
+    generateFlippedMatrix(data)
   );
   const [lastFlipped, setLastFlipped] = useState(null);
   const [locked, setLocked] = useState(false);
   const [points, setPoints] = useState(0);
-  // const [gameTime, setgameTime] = useState();
+  const [startTime] = useState(new Date());
+  const [finalTime, setFinalTime] = useState();
+  const [wrongPlays, setWrongPlays] = useState(0);
 
   const onClick = ({ x, y }) => {
-    // console.log(`click${y}${x}`);
     if (!locked && !flippedMatrix[y][x]) {
       const newFlippedMatrix = [...flippedMatrix];
       newFlippedMatrix[y][x] = !newFlippedMatrix[y][x];
@@ -24,27 +30,17 @@ function Board(props) {
   };
 
   const changeLastFlipped = ({ x, y }) => {
-    const allFlipped = {};
-    if (!lastFlipped) {
-      allFlipped.first = { x, y };
-      setLastFlipped({ x, y });
-    } else {
-      allFlipped.first = {};
-      Object.assign(allFlipped.first, lastFlipped);
-      allFlipped.second = { x, y };
-    }
+    const allFlipped = getFlippedPositionsObject({ x, y }, lastFlipped);
+    setLastFlipped({ x, y });
 
     if (allFlipped.first && allFlipped.second) {
-      const valid = validatePair(
-        allFlipped.first,
-        allFlipped.second,
-        props.data
-      );
+      const valid = validatePair(allFlipped.first, allFlipped.second, data);
 
       if (!valid) {
         setLocked(true);
         wrongSelectionAction([allFlipped.first, allFlipped.second]);
         setPoints(points - 50);
+        setWrongPlays(wrongPlays + 1);
       } else {
         setPoints(points + 300);
         setLastFlipped(null);
@@ -63,6 +59,7 @@ function Board(props) {
   };
 
   const checkEndGame = () => {
+    const finalDate = new Date();
     let result = true;
     flippedMatrix.forEach((line) => {
       line.forEach((piece) => {
@@ -71,12 +68,18 @@ function Board(props) {
     });
 
     if (result) {
-      if (props.matchCallback) {
-        props.matchCallback(points);
+      setFinalTime(finalDate);
+      retrievePointsFromTime(finalDate);
+      if (matchCallback) {
+        matchCallback(points);
       }
-      //TODO: fazer de forma ao resultado ser enviado à API para entrar
-      //      na lista de hiscores.
     }
+  };
+
+  const retrievePointsFromTime = (finalDate) => {
+    const dif = finalDate.getTime() - startTime.getTime();
+    const pointsToRemove = Math.floor(dif / 1000) * 3;
+    setPoints(points - pointsToRemove);
   };
 
   const unflipPositions = (positions = []) => {
@@ -87,12 +90,12 @@ function Board(props) {
     setFlippedMatrix(newFlippedMatrix);
   };
 
-  const boardList = props.data.map((line, y) => {
+  const boardList = data.map((line, y) => {
     const lineList = line.map((element, x) => {
       return (
         <Piece
           value={element}
-          style={props.style[element]}
+          style={style[element]}
           flipped={flippedMatrix[y][x]}
           onClick={() => onClick({ x, y })}
           position={{ x, y }}
@@ -104,12 +107,25 @@ function Board(props) {
   });
 
   return (
-    <div className='board-grid'>
-      {(props.started || (!props.started && props.finished)) && (
+    <div className={`board-grid${finalTime ? ' finished' : ''}`}>
+      {finalTime && (
+        <>
+          <h2 className='end-title'>Partida Finalizada</h2>
+          <h2 className='time-title'>
+            Duração:{' '}
+            <b id='points-value'>{getDiffTimesString(startTime, finalTime)}</b>
+          </h2>
+          <h2 className='time-title'>
+            Jogadas Erradas: <b id='points-value'>{wrongPlays}</b>
+          </h2>
+        </>
+      )}
+      {(started || (!started && finished)) && (
         <div className='points-container'>
           <h2>
             Pontuação: <b id='points-value'>{points}</b>
           </h2>
+
           {boardList}
         </div>
       )}

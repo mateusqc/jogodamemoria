@@ -11,3 +11,16 @@ export const generateFlippedMatrix = (data = [[]]) => {
 export const validatePair = (first, second, data) => {
   return data[first.y][first.x] === data[second.y][second.x];
 };
+
+export const getFlippedPositionsObject = ({ x, y }, lastFlipped) => {
+  const allFlipped = {};
+  if (!lastFlipped) {
+    allFlipped.first = { x, y };
+  } else {
+    allFlipped.first = {};
+    Object.assign(allFlipped.first, lastFlipped);
+    allFlipped.second = { x, y };
+  }
+
+  return allFlipped;
+};
